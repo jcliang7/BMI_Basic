@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -24,9 +26,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             double BMI = calcBMI();
-//            showResult(BMI);
-            TextView result = findViewById(R.id.result);
-            result.setText(BMI+"");
+            showResult(BMI);
+
         }
     };
 
@@ -37,5 +38,20 @@ public class MainActivity extends AppCompatActivity {
         double weight = Double.parseDouble(fieldweight.getText()+"");
         double BMI = weight / (height * height);
         return BMI;
+    }
+
+    void showResult(double BMI){
+        DecimalFormat nf = new DecimalFormat("0.00");
+        TextView result = findViewById(R.id.result);
+        result.setText("Your BMI si " + nf.format(BMI));
+
+        TextView fieldsuggest = findViewById(R.id.suggest);
+        if (BMI > 25) {
+            fieldsuggest.setText(R.string.advice_heavy);
+        } else if (BMI < 16) {
+            fieldsuggest.setText(R.string.advice_light);
+        } else {
+            fieldsuggest.setText(R.string.advice_average);
+        }
     }
 }
