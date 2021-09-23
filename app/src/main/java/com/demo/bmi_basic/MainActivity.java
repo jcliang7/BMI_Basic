@@ -1,11 +1,16 @@
 package com.demo.bmi_basic;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,9 +51,16 @@ public class MainActivity extends AppCompatActivity {
     private View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            double BMI = calcBMI();
-            showResult(BMI);
-            openOptionsDialog();
+            try{
+                double BMI = calcBMI();
+                showResult(BMI);
+                openOptionsDialog();
+            } catch(NumberFormatException e){
+                e.printStackTrace();
+                Toast.makeText(MainActivity.this, R.string.input_error, Toast.LENGTH_SHORT).show();
+            }
+
+
         }
     };
 
@@ -75,10 +87,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openOptionsDialog(){
-        Toast.makeText(MainActivity.this, "這是一個 Tost", Toast.LENGTH_LONG).show();
-        Toast.makeText(MainActivity.this, "這是另一個 Tost", Toast.LENGTH_SHORT).show();
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle(R.string.dialog_title)
+                .setMessage(R.string.dialog_message)
+                .setPositiveButton(R.string.dialog_btn_confirm, null)
+                .setNeutralButton(R.string.homepage_label,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Uri uri = Uri.parse("http://tw.yahoo.com");
+                                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                                startActivity(intent);
+                            }
+                        })
+                .setNegativeButton(R.string.dialog_btn_cancel, null)
+                .show();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(0, 10, 0, "關於").setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        menu.add(0, 20, 0, "結束").setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        return super.onCreateOptionsMenu(menu);
+    }
 
-
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case 10:
+                openOptionsDialog();
+                break;
+            case 20:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

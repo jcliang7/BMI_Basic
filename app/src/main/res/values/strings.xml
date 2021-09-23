@@ -8,4 +8,6 @@
     <string name="dialog_message">Android BMI Calc</string>
     <string name="dialog_btn_confirm">確認</string>
     <string name="dialog_btn_cancel">取消</string>
+    <string name="input_error">忘記輸入數字了嗎?</string>
+    <string name="homepage_label">首頁</string>
 </resources>
