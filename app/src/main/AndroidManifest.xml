@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BMI_Basic">
         <activity
+            android:name=".Report"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

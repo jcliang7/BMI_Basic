@@ -51,14 +51,16 @@ public class MainActivity extends AppCompatActivity {
     private View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            try{
-                double BMI = calcBMI();
-                showResult(BMI);
-                openOptionsDialog();
-            } catch(NumberFormatException e){
-                e.printStackTrace();
-                Toast.makeText(MainActivity.this, R.string.input_error, Toast.LENGTH_SHORT).show();
-            }
+            Intent intent = new Intent();
+
+//            try{
+//                double BMI = calcBMI();
+//                showResult(BMI);
+//                openOptionsDialog();
+//            } catch(NumberFormatException e){
+//                e.printStackTrace();
+//                Toast.makeText(MainActivity.this, R.string.input_error, Toast.LENGTH_SHORT).show();
+//            }
 
 
         }
@@ -106,8 +108,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0, 10, 0, "關於").setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        menu.add(0, 20, 0, "結束").setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        menu.add(0, 10, 0, "關於")
+                .setIcon(android.R.drawable.ic_menu_info_details)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        menu.add(0, 20, 0, "結束")
+                .setIcon(android.R.drawable.ic_menu_close_clear_cancel)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         return super.onCreateOptionsMenu(menu);
     }
 
