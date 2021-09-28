@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,8 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Button button;
     EditText field_height;
     EditText field_weight;
-//    TextView result;
-//    TextView fieldsuggest;
+    private static final String TAG = "Bmi";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +40,18 @@ public class MainActivity extends AppCompatActivity {
         button = findViewById(R.id.submit);
         field_height = (EditText) findViewById(R.id.height);
         field_weight = (EditText) findViewById(R.id.weight);
-//        result = findViewById(R.id.result);
-//        fieldsuggest = findViewById(R.id.suggest);
+        Log.d(TAG, "find Views()");
     }
 
     private void setListeners() {
+        Log.d(TAG, "setListeners()");
         button.setOnClickListener(listener);
     }
 
     private View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            Log.d(TAG, "OnClickListener - onClick");
             Intent intent = new Intent();
             intent.setClass(MainActivity.this, Report.class);
             Bundle bundle = new Bundle();
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void openOptionsDialog(){
+        Log.d(TAG, "openOptionsDialog()");
         new AlertDialog.Builder(MainActivity.this)
                 .setTitle(R.string.dialog_title)
                 .setMessage(R.string.dialog_message)
@@ -93,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d(TAG, "onCreateOptionsMenu");
         menu.add(0, 10, 0, "關於")
                 .setIcon(android.R.drawable.ic_menu_info_details)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -104,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Log.d(TAG, "onOptionsItemSelected()");
         switch(item.getItemId()){
             case 10:
                 openOptionsDialog();
