@@ -21,10 +21,10 @@ import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
     Button button;
-    EditText fieldheight;
-    EditText fieldweight;
-    TextView result;
-    TextView fieldsuggest;
+    EditText field_height;
+    EditText field_weight;
+//    TextView result;
+//    TextView fieldsuggest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void findViews() {
         button = findViewById(R.id.submit);
-        fieldheight = (EditText) findViewById(R.id.height);
-        fieldweight = (EditText) findViewById(R.id.weight);
-        result = findViewById(R.id.result);
-        fieldsuggest = findViewById(R.id.suggest);
+        field_height = (EditText) findViewById(R.id.height);
+        field_weight = (EditText) findViewById(R.id.weight);
+//        result = findViewById(R.id.result);
+//        fieldsuggest = findViewById(R.id.suggest);
     }
 
     private void setListeners() {
@@ -52,7 +52,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent();
-
+            intent.setClass(MainActivity.this, Report.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("KEY_HEIGHT", field_height.getText().toString());
+            bundle.putString("KEY_WEIGHT", field_weight.getText().toString());
+            intent.putExtras(bundle);
+            startActivity(intent);
 //            try{
 //                double BMI = calcBMI();
 //                showResult(BMI);
@@ -66,27 +71,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private double calcBMI() {
-        double height = Double.parseDouble(fieldheight.getText() + "") / 100;
-        double weight = Double.parseDouble(fieldweight.getText() + "");
-        double BMI = weight / (height * height);
-        return BMI;
-    }
 
-    private void showResult(double BMI) {
-        DecimalFormat nf = new DecimalFormat("0.00");
-
-        result.setText("Your BMI si " + nf.format(BMI));
-
-
-        if (BMI > 25) {
-            fieldsuggest.setText(R.string.advice_heavy);
-        } else if (BMI < 16) {
-            fieldsuggest.setText(R.string.advice_light);
-        } else {
-            fieldsuggest.setText(R.string.advice_average);
-        }
-    }
 
     private void openOptionsDialog(){
         new AlertDialog.Builder(MainActivity.this)
