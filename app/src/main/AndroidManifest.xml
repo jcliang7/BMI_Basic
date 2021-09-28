@@ -10,6 +10,7 @@
         android:theme="@style/Theme.BMI_Basic">
         <activity
             android:name=".Report"
+            android:label = "@string/report_title"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

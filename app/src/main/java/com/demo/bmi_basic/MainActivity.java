@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,14 +21,15 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "Bmi";
     Button button;
     EditText fieldheight;
     EditText fieldweight;
-    TextView result;
-    TextView fieldsuggest;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate()");
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_main);
@@ -37,21 +39,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void findViews() {
+        Log.d(TAG, "findViews()");
         button = findViewById(R.id.submit);
         fieldheight = (EditText) findViewById(R.id.height);
         fieldweight = (EditText) findViewById(R.id.weight);
-        result = findViewById(R.id.result);
-        fieldsuggest = findViewById(R.id.suggest);
     }
 
     private void setListeners() {
+        Log.d(TAG, "setListeners()");
         button.setOnClickListener(listener);
     }
 
     private View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            Log.d(TAG, "OnClickListener() - onClick");
             Intent intent = new Intent();
+            intent.setClass(MainActivity.this, Report.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("KEY_HEIGHT", fieldheight.getText().toString());
+            bundle.putString("KEY_WEIGHT", fieldweight.getText().toString());
+            intent.putExtras(bundle);
+            startActivity(intent);
+
 
 //            try{
 //                double BMI = calcBMI();
@@ -66,29 +76,9 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private double calcBMI() {
-        double height = Double.parseDouble(fieldheight.getText() + "") / 100;
-        double weight = Double.parseDouble(fieldweight.getText() + "");
-        double BMI = weight / (height * height);
-        return BMI;
-    }
-
-    private void showResult(double BMI) {
-        DecimalFormat nf = new DecimalFormat("0.00");
-
-        result.setText("Your BMI si " + nf.format(BMI));
-
-
-        if (BMI > 25) {
-            fieldsuggest.setText(R.string.advice_heavy);
-        } else if (BMI < 16) {
-            fieldsuggest.setText(R.string.advice_light);
-        } else {
-            fieldsuggest.setText(R.string.advice_average);
-        }
-    }
 
     private void openOptionsDialog(){
+        Log.d(TAG, "openOptionsDialog()");
         new AlertDialog.Builder(MainActivity.this)
                 .setTitle(R.string.dialog_title)
                 .setMessage(R.string.dialog_message)
@@ -108,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d(TAG, "onCreateOptionsMenu()");
         menu.add(0, 10, 0, "關於")
                 .setIcon(android.R.drawable.ic_menu_info_details)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -119,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Log.d(TAG, "onOptionsItemSelected");
         switch(item.getItemId()){
             case 10:
                 openOptionsDialog();
