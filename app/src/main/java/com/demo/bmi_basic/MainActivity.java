@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,27 @@ public class MainActivity extends AppCompatActivity {
     EditText field_height;
     EditText field_weight;
     private static final String TAG = "Bmi";
+    public static final String PREF = "BMI_PREF";
+    public static final String PREF_HEIGHT = "BMI_HEIGHT";
+//    public static final String PREF_WEIGHT = "BMI_WEIGHT";
+
+    private void restorePrefs(){
+        SharedPreferences settings = getSharedPreferences(PREF, 0);
+        String pref_height = settings.getString(PREF_HEIGHT, "");
+//        String pref_height = settings.getString(PREF_WEIGHT, "");
+        if (!"".equals(pref_height))
+        {
+            field_height.setText(pref_height);
+            field_weight.requestFocus();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences settings = getSharedPreferences(PREF, 0);
+        settings.edit().putString(PREF_HEIGHT, field_height.getText().toString()).commit();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
 //        setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_main);
         findViews();
+        restorePrefs();
         setListeners();
 
     }

@@ -3,9 +3,15 @@ package com.demo.bmi_basic;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -55,6 +61,7 @@ public class Report extends AppCompatActivity {
 
 
         if (BMI > 25) {
+            showNotification(BMI);
             fieldsuggest.setText(R.string.advice_heavy);
         } else if (BMI < 16) {
             fieldsuggest.setText(R.string.advice_light);
@@ -83,5 +90,35 @@ public class Report extends AppCompatActivity {
 
 
     };
+
+    protected void showNotification (double BMI){
+        NotificationManager barManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,
+                0,
+                new Intent(this, MainActivity.class),
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        String CHANNEL_ID = "my_channel_01";
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, "my_channel", importance);
+            mChannel.setDescription("This is my channel");
+            mChannel.enableLights(true);
+            mChannel.setLightColor(Color.RED);
+            barManager.createNotificationChannel(mChannel);
+        }
+
+
+
+        Notification barMsg = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle("您的BMI值過高")
+                .setContentText("通知監督人")
+                .setSmallIcon(android.R.drawable.stat_sys_warning)
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent)
+                .build();
+
+        barManager.notify(0, barMsg);
+    }
 
 }

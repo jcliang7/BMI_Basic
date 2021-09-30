@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="advice_light">你該多吃點</string>
-    <string name="advice_average">身材很標準</string>
-    <string name="advice_heavy">你該減肥了</string>
+    <string name="advice_light">You need to eat more!</string>
+    <string name="advice_average">Perfect</string>
+    <string name="advice_heavy">You need to le weight.</string>
 </resources>
