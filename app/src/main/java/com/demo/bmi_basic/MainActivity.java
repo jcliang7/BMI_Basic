@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     Button button;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String PREF = "BMI_PREF";
     public static final String PREF_HEIGHT = "BMI_HEIGHT";
 //    public static final String PREF_WEIGHT = "BMI_WEIGHT";
+    String lan="";
 
     private void restorePrefs(){
         SharedPreferences settings = getSharedPreferences(PREF, 0);
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
+        lan = Locale.getDefault().getLanguage();
         setContentView(R.layout.activity_main);
         findViews();
         restorePrefs();
@@ -60,9 +63,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void findViews() {
-        button = findViewById(R.id.submit);
-        field_height = (EditText) findViewById(R.id.height);
-        field_weight = (EditText) findViewById(R.id.weight);
+        if (lan.equals("zh")){
+            button = findViewById(R.id.submit);
+            field_height = (EditText) findViewById(R.id.height);
+            field_weight = (EditText) findViewById(R.id.weight);
+        }else if (lan.equals("en")){
+            button = findViewById(R.id.submit);
+            field_height = (EditText) findViewById(R.id.height);
+            field_weight = (EditText) findViewById(R.id.weight);
+        }
         Log.d(TAG, "find Views()");
     }
 

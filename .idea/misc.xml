@@ -11,7 +11,11 @@
         <entry key="..\:/liang/BMI_Basic/app/src/main/res/layout/activity_main.xml" value="0.2957427536231884" />
         <entry key="..\:/liang/BMI_Basic/app/src/main/res/layout/exercise1.xml" value="0.33" />
         <entry key="..\:/liang/BMI_Basic/app/src/main/res/layout/linearlayout.xml" value="0.36614583333333334" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3229166666666667" />
+        <entry key="app/src/main/res/layout-en/activity_main.xml" value="0.4" />
+        <entry key="app/src/main/res/layout-en/exercise1.xml" value="0.22447916666666667" />
+        <entry key="app/src/main/res/layout-zh-rTW/activity_main.xml" value="0.4" />
+        <entry key="app/src/main/res/layout-zh-rTW/exercise1.xml" value="0.16979166666666667" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.536" />
         <entry key="app/src/main/res/layout/activity_report.xml" value="0.6" />
         <entry key="app/src/main/res/layout/exercise1.xml" value="0.3229166666666667" />
       </map>
